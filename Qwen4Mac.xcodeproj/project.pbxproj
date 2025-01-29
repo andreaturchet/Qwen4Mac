@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		635877A12D4AE8300025CE87 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = 635877A02D4AE8300025CE87 /* HotKey */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		6358777E2D4AE79A0025CE87 /* Qwen4Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Qwen4Mac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				635877A12D4AE8300025CE87 /* HotKey in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = Qwen4Mac;
 			packageProductDependencies = (
+				635877A02D4AE8300025CE87 /* HotKey */,
 			);
 			productName = Qwen4Mac;
 			productReference = 6358777E2D4AE79A0025CE87 /* Qwen4Mac.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 635877752D4AE79A0025CE87;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6358779F2D4AE8300025CE87 /* XCRemoteSwiftPackageReference "HotKey" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6358777F2D4AE79A0025CE87 /* Products */;
 			projectDirPath = "";
@@ -252,10 +261,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Qwen4Mac/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -277,10 +288,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Qwen4Mac/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -315,6 +328,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6358779F2D4AE8300025CE87 /* XCRemoteSwiftPackageReference "HotKey" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soffes/HotKey.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		635877A02D4AE8300025CE87 /* HotKey */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6358779F2D4AE8300025CE87 /* XCRemoteSwiftPackageReference "HotKey" */;
+			productName = HotKey;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 635877762D4AE79A0025CE87 /* Project object */;
 }
