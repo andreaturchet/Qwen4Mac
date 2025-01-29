@@ -1,6 +1,6 @@
 # Qwen Mac Menu Bar
 
-![Qwen Logo](https://qwenlm.github.io/assets/qwen-logo.svg)
+![Qwen Logo](resource/qwen.png)
 
 **Bringing the power of Alibaba Cloud's Qwen LLM to your macOS menu bar!**
 
