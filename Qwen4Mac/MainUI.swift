@@ -12,8 +12,7 @@ struct MainUI: View {
     private let webAddress = "https://chat.qwenlm.ai"
 
     private var webConfig: WebViewConfig {
-        WebViewConfig(//customUserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15"
-        )
+        WebViewConfig(customUserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15")
     }
 
     var body: some View {
@@ -34,7 +33,10 @@ struct MainUI: View {
 
     private var navigationToolbar: some View {
         HStack(spacing: 10) {
-            Spacer() // Push the reload button to the right
+            ToolbarButton(systemName: "square.and.pencil") {
+                loadNewChat()
+            }
+            Spacer()
             if webViewState.isLoading {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
@@ -56,13 +58,19 @@ struct MainUI: View {
         }
     }
 
+    private func loadNewChat() {
+        guard let baseURL = URL(string: webAddress),
+              let newChatURL = URL(string: "/", relativeTo: baseURL)
+        else { return }
+        webViewAction = .load(URLRequest(url: newChatURL))
+    }
+
     private func loadAddress() {
         guard let url = URL(string: webAddress) else { return }
         webViewAction = .load(URLRequest(url: url))
     }
 }
 
-// Helper view for toolbar buttons (remains unchanged)
 struct ToolbarButton: View {
     let systemName: String
     let disabled: Bool
@@ -84,7 +92,6 @@ struct ToolbarButton: View {
     }
 }
 
-// WebViewHelper (remains unchanged)
 struct WebViewHelper {
     static func clean() {
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)

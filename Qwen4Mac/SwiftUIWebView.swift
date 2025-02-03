@@ -1,3 +1,8 @@
+//
+//  Qwen4Mac
+//
+//  Created by Andrea Turchet on 29/01/2025
+//
 import SwiftUI
 import WebKit
 import Foundation
@@ -196,7 +201,7 @@ public struct WebViewConfig {
     public let isScrollEnabled: Bool
     public let isOpaque: Bool
     public let backgroundColor: Color
-	public var customUserAgent:String?
+    public var customUserAgent:String?
     
     public init(javaScriptEnabled: Bool = true,
                 allowsBackForwardNavigationGestures: Bool = true,
@@ -205,7 +210,7 @@ public struct WebViewConfig {
                 isScrollEnabled: Bool = true,
                 isOpaque: Bool = true,
                 backgroundColor: Color = .clear,
-				customUserAgent: String? = nil) {
+                customUserAgent: String? = nil) {
         self.javaScriptEnabled = javaScriptEnabled
         self.allowsBackForwardNavigationGestures = allowsBackForwardNavigationGestures
         self.allowsInlineMediaPlayback = allowsInlineMediaPlayback
@@ -213,7 +218,8 @@ public struct WebViewConfig {
         self.isScrollEnabled = isScrollEnabled
         self.isOpaque = isOpaque
         self.backgroundColor = backgroundColor
-		self.customUserAgent = customUserAgent
+        self.customUserAgent = customUserAgent
+        
     }
 }
 
@@ -267,10 +273,10 @@ public struct WebView: UIViewRepresentable {
         
         return webView
     }
-	
-	@objc func hello() {
-		
-	}
+    
+    @objc func hello() {
+        
+    }
     
     public func updateUIView(_ uiView: WKWebView, context: Context) {
         if action == .idle || context.coordinator.actionInProgress {
@@ -339,7 +345,7 @@ public struct WebView: NSViewRepresentable {
         
         let webView = WKWebView(frame: CGRect.zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
-		webView.customUserAgent = config.customUserAgent
+        webView.customUserAgent = config.customUserAgent
         webView.uiDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = config.allowsBackForwardNavigationGestures
         
