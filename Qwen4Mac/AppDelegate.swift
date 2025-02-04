@@ -15,18 +15,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSPopoverDel
 
     private var hotKey = HotKey(key: .c, modifiers: [.shift, .command])
     private var additionalHotKeys: [HotKey] = []
+    private let alwaysOnTopKey = "alwaysOnTopPreference" // UserDefaults key
+    @AppStorage("isAlwaysOnTop") var isAlwaysOnTop: Bool = false
+
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         setupStatusItem()
         constructPopover()
         constructMenu()
         setupGlobalHotKey()
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.togglePopover()
         }
     }
-    
+
 
     private func setupStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -55,7 +58,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSPopoverDel
 
     private func constructMenu() {
         menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Clean Cookies", action: #selector(didTapOne), keyEquivalent: "1"))
+        menu.addItem(NSMenuItem(title: "Clean Cookies", action: #selector(didTapCleanCookies), keyEquivalent: "1"))
+
+        let alwaysOnTopMenuItem = NSMenuItem(title: "Always on Top", action: #selector(toggleAlwaysOnTop), keyEquivalent: "t")
+        alwaysOnTopMenuItem.state = isAlwaysOnTop ? .on : .off
+        menu.addItem(alwaysOnTopMenuItem)
+
+
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         menu.delegate = self
@@ -84,7 +93,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSPopoverDel
             guard let button = statusItem.button else { return }
             NSApplication.shared.activate(ignoringOtherApps: true)
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
-            popover.contentViewController?.view.window?.level = .floating
+            popover.contentViewController?.view.window?.level = isAlwaysOnTop ? .floating : .normal // Set level based on preference
             popover.contentViewController?.view.window?.makeKey()
             constructKeys()
         }
@@ -112,9 +121,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSPopoverDel
         }
     }
 
-    @objc private func didTapOne() {
+    @objc private func didTapCleanCookies() {
         WebViewHelper.clean()
     }
+
+    @objc private func toggleAlwaysOnTop() {
+        isAlwaysOnTop.toggle()
+        constructMenu() // Reconstruct menu to update the state of "Always on Top" item
+        if popover.isShown { // Re-apply level if popover is already shown
+            popover.contentViewController?.view.window?.level = isAlwaysOnTop ? .floating : .normal
+        }
+    }
+
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application

@@ -13,7 +13,7 @@ This lightweight macOS application provides quick and convenient access to Qwen,
 *   **Clean Cookies:** Easily clear cookies with a right-click on the menu bar icon to log in with a different account.
 *   **Web Shortcuts:** Supports standard web browsing shortcuts like `Cmd + C/V/X/Z/A`.
 *   **macOS Native:** Built using Swift and SwiftUI for a seamless macOS experience.
-
+*   **Always on Top Option:** Keep the Qwen popover window always visible on top of other applications.
 ## Preview
 
 ![App Screenshot](resource/snapshot.png)
