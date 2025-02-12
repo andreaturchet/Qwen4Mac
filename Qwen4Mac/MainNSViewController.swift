@@ -8,9 +8,20 @@ import AppKit
 
 class MainNSViewController: NSViewController {
     override func loadView() {
+        let rootView = PopoverContentView()
         let hostingController = NSHostingController(rootView: MainUI())
-        self.view = hostingController.view
-        self.view.frame = CGRect(origin: .zero, size: CGSize(width: 500, height: 600))
+
+        rootView.addSubview(hostingController.view)
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hostingController.view.topAnchor.constraint(equalTo: rootView.topAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: rootView.bottomAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: rootView.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: rootView.trailingAnchor)
+        ])
+
+        self.view = rootView
+        self.view.frame = CGRect(origin: .zero, size: CGSize(width: 500, height: 600)) 
     }
 
     override func mouseDragged(with event: NSEvent) {

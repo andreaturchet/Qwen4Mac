@@ -6,6 +6,16 @@
 import SwiftUI
 import WebKit
 
+// Extension to initialize Color from hex string
+extension Color {
+    init(hex: String) {
+        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int: UInt64 = 0
+        Scanner(string: hex).scanHexInt64(&int)
+        self.init(red: Double((int & 0xFF0000) >> 16) / 255, green: Double((int & 0x00FF00) >> 8) / 255, blue: Double(int & 0x0000FF) / 255)
+    }
+}
+
 struct MainUI: View {
     @State private var webViewAction = WebViewAction.idle
     @State private var webViewState = WebViewState.empty
@@ -14,6 +24,12 @@ struct MainUI: View {
     private var webConfig: WebViewConfig {
         WebViewConfig(customUserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15")
     }
+
+    // Define the desired background color
+    private var headerBackgroundColor: Color {
+        Color(hex: "#6a59e3")
+    }
+
 
     var body: some View {
         VStack(spacing: 0) {
@@ -28,7 +44,7 @@ struct MainUI: View {
         .onAppear {
             loadAddress()
         }
-        .background(Color(nsColor: .windowBackgroundColor))
+        .background(headerBackgroundColor) // Apply header color to the entire popover background
     }
 
     private var navigationToolbar: some View {
@@ -47,7 +63,7 @@ struct MainUI: View {
             }
         }
         .padding(15)
-        .background(Color(nsColor: .windowBackgroundColor))
+        .background(headerBackgroundColor) // Header bar still uses the same color
     }
 
     @ViewBuilder
